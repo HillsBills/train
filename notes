@@ -1,0 +1,202 @@
+main:
+
+    TODO maybe i will have only one of each files. then i can put the file name down here and create it only
+# if it doesnt exist. (or maybe i will add a line to each new file. then i need to give the file address each time. numbering)
+
+new_file = input('would you like to create new employee and attendance files? type 1. else continue')
+if new_file:
+    create_file = input('would you like to create an attendance file? type 1. For creating both attendance'
+                        ' and employees files type 2. For creating employees continue.')
+    if create_file == 1:
+
+    elif create_file == 2:
+
+    else:
+
+else:
+# TODO ofir said ask all questions in one if. dont separate functions. cause they didnt ask for it.
+
+# ofir says data validation should be in one while in main and many try except in separate functions in the classes that
+# will return to the while in main (the first input) and we will start all from beginning. he says this is more elegant
+# than having many whiles.
+
+        # name = '1'
+        # while not name.isalpha():
+        #     name = input('Enter name ')
+
+file = input('If you would you like to work with the employee file type 1. For the attendance log click Enter')
+if file:
+    function = input(
+        'If you would like to add an employee manually, type 1. For adding from a file type 2. For deleting an '
+        'employee manually type 3. For deleting employees from a file click Enter. ')
+    if function == 1:
+            '''(old- check that every params type with try check break (the while will be in main))'''
+
+        add_employee(self, employee_id, name, birthdate, phone)
+    elif function == 2:
+    '''-check file address is valid. (check file exists with open read or something with try
+         and break to main while)'''
+        add_employees_from_file(self, file_address)
+    elif function == 3:
+        delete_employee(self, employee_id)
+    else:
+        delete_employees_from_file(self, file_address)
+else:
+    function = input('If you would like to mark your attendance, type 1. For generating an employee report type 2. '
+                     'For generating last months attendance report type 3. For generating late attendance report click '
+                     'enter.')
+    if function == 1:
+        input()
+        mark_attendance(self, employee_id, employees_file)
+    elif function == 2:
+        employee_attendance_report(self, employee_id)
+    elif function == 3:
+        last_month_employees_attendance_report(self)
+    else:
+        last_month_late_employees_attendance_report(self)
+
+    how do i save an object from run to run? no. i can work with the files and recreate the object?
+no need to save the object? only the file? but how can i run the functions without an object...i cant.
+so maybe ill have objects for employee and employees? will employees object be a connection in init to the existing file?
+
+    employees_file =input('enter file address')
+    #(retrieve the correct attendance file from this name)
+
+    shir advised on creating a files class. where i will keep all read write open and close functions.
+and call them from the class. in the meantime i wont do this. the init will have the address for the file.
+
+employees:
+
+the files exist. i create them. the instructions say only maintain existing files.
+# the files will be in a data folder, for tidiness.
+    #
+    #  so i will give the address in main when creating the object, as a param. the
+    #  address will be an attribute of inits
+
+    should i have an employee class which will have an object for each employee with attributes, for the add
+employee function? but then i may have employees which dont have objects, because they came from a file. maybe
+i can create from the file the new employee object? is it even necessary? is it at all necessary to have an
+employee object? the object will inherit the two other classes. (two functions in each of the classes will
+work. although delete doesnt actually need an object. mark attendance makes sense. attendance report makes
+sense as well, but does it help? but if i run them on objects they wont work without objects. or maybe ill have
+both versions, inherited and original. I'd rather not do the employee class)
+
+    # (no because i cant save the date in the file, only the age, so i cant update it, do exactly according to
+# instructions. plus im not planning to update the file ). have an update function age, when age is relevant (like
+# with a search employee function)
+
+@staticmethod
+    def hilla():
+        list = []
+
+the csv itself is just a text file. the only special thing is the way i read it in context to the commas and new lines.
+check if there are more functions i didnt learn with handling files. and think how to do everything.
+
+# maybe phone and id isnt an int because it can start with 0?
+
+# TODO whenever i wish to add an employee , i may add an id automatically instead of the user giving the id.
+        # i read the last id in the file and add 1 to each new employee. the same for the file.
+    # this isnt good because how will the user know the employee id? he doesnt have access to this file.
+    # there needs to be a function that gives the generated id to the user.
+     in any case it aint good because there needs to be an ID connected to the givven name otherwise how can we differentiate
+      between them if we have 2 with the same name? the only way i create the employee ID is if the user gives me an ID as well.
+       no way I create an ID without the user having one beforehand
+
+       add from file:
+-if the file is empty say its empty and finish function. (read and if None)
+        -if the file isnt empty, check that every line has all needed categories
+            and that they are the correct type by order. (maybe readline, (or re)
+            split lines with ',' in order to have the different cells, check type of each list entry,)
+            shout all needed information in the file, and its order if there is a problem)
+        -in a while, readline, open and write to employee file
+
+        delete:
+
+        -check entered is an int.
+        -open read and write employee file. find employee id (method? re? go over columns?) find with read and string
+             method. readline. write with replace '' with the line. maybe also end=''
+        -delete line where found (equal line to None? but the line will be empty, it needs to not exist.
+        replace? sub? changes the file?
+            ofir suggested to copy all but the line to a new file and delete previous file.
+            no need, just rewrite the new file )
+
+          delete from file:
+
+        -check file address is valid in main.
+            (check file exists with open read or something with try except and break to main while)
+        -if the file is empty say its empty and finish function. (read and if None)
+        -make sure all is commas and ints. and make sure every line has one int.
+            shout that the file shouldnt contain non ints, and that every line should have one int.
+        -in a while, copy each int (split lines with ',' in order to have the different cells)
+            open and read and write to employee file.
+            find employee id (method? re? go over columns?)
+        -delete line where found (equal line to None? but the line will be empty, it needs to not exist)
+            ofir suggested to copy all but the line to a new file and delete previous file)
+
+         init:
+
+         -check file exists with read or something with try and raise
+        -finally update attribute
+
+        mark:
+
+        -check entered is an int.
+        -check file exists with read or something with try and while
+        -read employee file. find employee id (method? re? go over columns?). will shout if doesnt exist.
+            copy the name after the employee id using re and save in var.
+        -open and write to attendance, extract date time and write date, time, id from param, name from var.
+
+        employee report:
+
+        -check entered is an int.
+        -open and read attendance file. search for id (maybe in a loop). save the line in a list
+        - return the list into an extra func that will run this func. so i have one func that returns the list,
+            and one func that prints the list nicely
+            (print each cell from the list in a while, maybe replace commas with spaces).
+            (check to see if both of them work).
+            the original function and argument will be parameters in the print function
+
+         month report:
+
+          -look with datetime the current month.
+        - open and read file. in a while, search for this string in the file and print it.
+            (maybe replace commas into spaces)
+
+         late report:
+
+          - open and read file. in a while, search for times bigger than 9:30 in the file
+            (with re find times, maybe a time function will know what is bigger) and print the line.
+            (maybe replace commas into spaces)
+
+employee_id,name,phone,age
+1,hilla,2,3
+0,hi,9,8
+1,s,2,9
+
+employee_id,name,phone,age
+1,Hilla,2,3
+3,hI,9,8
+2,s,2,9
+12,s,1,3,1
+
+1,s,1,3,1
+
+1
+2,1
+8,a
+3
+12
+
+date,time,employee_id,name
+02/07/21,9:09:30,1,hilla
+01/09/21,20:17:14,1,hilla
+01/07/21,20:21:22,1,hilla
+01/07/21,20:37:11,12,s
+01/07/21,21:09:19,1,hilla
+01/07/21,21:09:25,1,hilla
+01/07/21,21:09:30,1,hilla
+02/07/21,21:09:30,1,hilla
+01/13/21,00:07:23,1,hilla
+
+data/Add employees.csv
+data/Delete employees.csv
