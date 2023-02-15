@@ -28,27 +28,22 @@ def mark_attendance(employee_id):
     :return: print
     """
     employee_info = employees.search_employee(set(employee_id), employees.FIELDNAMES[0], 'name')
-    # if not employee_info:
     if employee_info == employees.NOT_EXIST:
         return print(employee_info)
-        # return print(f'{employee_id} {employees.NOT_EXIST}')
     name, level = employee_info
 
     mode = 'w'
     # todo- do i need to write module.func?
     if file.get_reader(ADDRESS):
         mode = 'a'
-    # date = datetime.date.today()
-    # datetime.date(1992, 3, 12)
+
     now = datetime.datetime.now().strftime
-    # fieldnames = ['date', 'time', 'employee id', 'name', 'level']
-    # param = [{'date': date, 'time': time, 'employee_id': employee_id, 'name': name, 'level': level}]
+
     line = [{FIELDNAMES[0]: now("%x"), FIELDNAMES[1]: now("%X"), FIELDNAMES[2]: employee_id, FIELDNAMES[3]: name,
              FIELDNAMES[4]: level}]
     file.write_file(line, ADDRESS, FIELDNAMES, mode)
 
 
-# combine with current, late, range. (employee, current, late) (employee, range, late)
 # todo test- check runs when empty
 def employee_attendance_report(employee_id, comb=None):
     """
@@ -64,9 +59,7 @@ def employee_attendance_report(employee_id, comb=None):
     #  maybe its better not to have it as an attribute
     reader = file.get_reader(ADDRESS)
     report = [line for line in reader if line[FIELDNAMES[2]] == employee_id]
-    # print(report)
-    # print(frozenset(report[1].items()))
-    # print(frozenset(report))
+
 
     try:
         # will this try work?
@@ -88,16 +81,8 @@ def _report(header, report, comb=None, full=None):
         return report, header
     _print(report, header, full)
 
-    # if comb:
-    #     return report
-    # try:
-    #     print(f'{employee_id} {report[0]["name"]} Attendance Report')
-    #     _print(report, str)
-    # except IndexError:
-    #     print('Empty report')
 
 
-# combine with late, level, employee.
 # todo test- check runs when empty.
 #  - check report is right
 def current_month_attendance_report(comb=None):
@@ -117,31 +102,7 @@ def current_month_attendance_report(comb=None):
 
     return _report('Current Month', report, comb, True)
 
-    # header = 'Current Month'
-    # if comb:
-    #     return report, header
-    # _print(report, header, True)
 
-    # if comb:
-    #     return report
-    # print('Current Month Attendance Report\n')
-    # _print(report, True)
-
-
-def oldcurrent_month_attendance_report():
-    # anna stops when reach the month. which is better? less complex is better. so that i dont continue asking if
-    reader = file.get_reader(ADDRESS)
-    # report = []
-    # i = None
-    for line in reader:
-        if datetime.datetime.strptime(line[FIELDNAMES[0]], "%m/%d/%y").month == datetime.datetime.today().month:
-            i = reader.index(line)
-            break
-    if i:
-        report = [reader[i] for i in range(i, len(reader))]
-
-
-# combine with range, level, employee
 # todo test- check runs when empty
 def late_attendance_report(comb=None):
     """
@@ -155,16 +116,6 @@ def late_attendance_report(comb=None):
     report = [line for line in reader if date_time(line[FIELDNAMES[1]], "%H:%M:%S").time() > datetime.time(9, 30, 0)]
 
     return _report('Late', report, comb, True)
-
-    # header = 'Late'
-    # if comb:
-    #     return report, header
-    # _print(report, header, True)
-
-    # if comb:
-    #     return report
-    # print('Late Attendance Report\n')
-    # _print(report, True)
 
 
 # combine with level, employee, late
@@ -185,30 +136,16 @@ def date_range_attendance_report(until, _from, comb=None):
     report = []
     for line in reader:
         date = date_time(line[FIELDNAMES[0]], "%m/%d/%y")
-        # if date > until:
-        #     break
+
         # # TODO anna how do i make him ask only until the answer is yes and then stop asking this question?
         # #  i can do the same as current month. is the while better than if or the same?
-        # if date >= _from:
-        #     report.append(line)
+
         if date >= _from:
             if date > until:
                 break
             report.append(line)
 
     return _report(f'{_from} - {until}', report, comb, True)
-
-    # header = f'{_from} - {until}'
-    # if comb:
-    #     return report, header
-    # _print(report, header, True)
-
-    # if comb:
-    #     return report
-    # # do i need .date()?
-    # # print(f'{_from.date()} - {until.date()} Attendance Report\n')
-    # print(f'{_from} - {until} Attendance Report\n')
-    # _print(report, True)
 
     # todo anna- which version is better?
     reader = iter(file.get_reader(ADDRESS))
@@ -229,7 +166,6 @@ def date_range_attendance_report(until, _from, comb=None):
             break
 
 
-# combine with late, range, current (level, range, late) (level, current, late)
 # todo test- check runs when empty.
 #  -check report works.
 def level_attendance_report(levels, comb=None):
@@ -245,17 +181,6 @@ def level_attendance_report(levels, comb=None):
     report = [line for line in reader if line[FIELDNAMES[4]] in levels]
 
     return _report(f"{','.join(levels)}", report, comb, True)
-
-    # header = f"{','.join(levels)}"
-    # if comb:
-    #     return report, header
-    # _print(report, header, True)
-
-    # if comb:
-    #     return report
-    #
-    # print(f"{','.join(levels)} Attendance Report")
-    # _print(report, True)
 
 
 # old version. if there is no level in attendance log
@@ -288,8 +213,6 @@ def combination_attendance_report(reports, header):
     @param reports: list
     @param header: list
     """
-    # print(reports)
-
     report = []
     if len(reports) <= 2:
         for line in reports[0]:
@@ -301,29 +224,6 @@ def combination_attendance_report(reports, header):
                 report.append(line)
 
     _report(f"{' '.join(header)}", report, True)
-
-    # header = f"{' '.join(header)}"
-    # _print(report, header, True)
-
-    # print(f"{' '.join(header)}Attendance Report")
-    # _print(report, True)
-
-    # check = reports[2]
-    # list1 = reports[1]
-    # list2 = reports[0]
-    #
-    # if len(reports[0]) >= len(reports[1]) and len(reports[2]):
-    #     check = reports[0]
-    #     list2 = reports[2]
-    # elif len(reports[1]) >= len(reports[0]) and len(reports[2]):
-    #     check = reports[1]
-    #     list1 = reports[0]
-    #     list2 = reports[2]
-    #
-    # does this make sense?
-    # for line, lin in zip(list1, list2):
-    #     if line and lin in check:
-    #         report.append(line)
 
 
 # todo check no level prints right. maybe no need to separate cause looks the same
@@ -345,7 +245,6 @@ def _print(report, header, full=None):
         # need?
         else:
             print('')
-        # print(f'{dic["employee_id"]} {dic["name"]} {dic["level"]}') if full else print('')
 
 
 # chuck = employees_class.Employees('C:\\Users\\hillaky\\PycharmProjects\\pythonProject\\data\\Employees.csv')
