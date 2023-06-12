@@ -1,4 +1,4 @@
-#Attendance System
+# Attendance System
 
 This is an uncleaned python project.
 It uses csv module, different files, and builds an attendance program.
@@ -8,4 +8,3 @@ I first used classes but then thought it isnt actually used
 It is basically finished, just not clean.
 There is more functinality I wanted to add plus better coding, but that probably wont happen.
 
-should i add md?
